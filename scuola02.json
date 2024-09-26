@@ -1,0 +1,118 @@
+[
+    {
+        "anno": "3",
+        "sezione": "A",
+        "indirizzo": "INF",
+        "numeroAlunni": 21,
+        "materie": [
+            {
+                "nome": "italiano",
+                "ore": 4,
+                "obbligatoria": true
+            },
+            {
+                "nome": "storia",
+                "ore": 2,
+                "obbligatoria": true
+            },
+            {
+                "nome": "matematica",
+                "ore": 3,
+                "obbligatoria": true
+            },
+            {
+                "nome": "inglese",
+                "ore": 3,
+                "obbligatoria": true
+            },
+            {
+                "nome": "scienze motorie e sportive",
+                "ore": 2,
+                "obbligatoria": true
+            },
+            {
+                "nome": "religione",
+                "ore": 1,
+                "obbligatoria": false
+            },
+            {
+                "nome": "informatica",
+                "ore": 6,
+                "obbligatoria": true
+            },
+            {
+                "nome": "TPSIT",
+                "ore": 3,
+                "obbligatoria": true
+            },
+            {
+                "nome": "sistemi e reti",
+                "ore": 4,
+                "obbligatoria": true
+            },
+            {
+                "nome": "telecomunicazioni",
+                "ore": 3,
+                "obbligatoria": true
+            }
+        ]
+    },
+    {
+        "anno": "4",
+        "sezione": "A",
+        "indirizzo": "INF",
+        "numeroAlunni": 18,
+        "materie": [
+            {
+                "nome": "italiano",
+                "ore": 4,
+                "obbligatoria": true
+            },
+            {
+                "nome": "storia",
+                "ore": 2,
+                "obbligatoria": true
+            },
+            {
+                "nome": "matematica",
+                "ore": 3,
+                "obbligatoria": true
+            },
+            {
+                "nome": "inglese",
+                "ore": 3,
+                "obbligatoria": true
+            },
+            {
+                "nome": "scienze motorie e sportive",
+                "ore": 2,
+                "obbligatoria": true
+            },
+            {
+                "nome": "religione",
+                "ore": 1,
+                "obbligatoria": false
+            },
+            {
+                "nome": "informatica",
+                "ore": 6,
+                "obbligatoria": true
+            },
+            {
+                "nome": "TPSIT",
+                "ore": 3,
+                "obbligatoria": true
+            },
+            {
+                "nome": "sistemi e reti",
+                "ore": 4,
+                "obbligatoria": true
+            },
+            {
+                "nome": "telecomunicazioni",
+                "ore": 3,
+                "obbligatoria": true
+            }
+        ]
+    }
+]
