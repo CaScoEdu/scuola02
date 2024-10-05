@@ -1,43 +1,43 @@
-let requestURL = './scuola02.json';
-let request = new XMLHttpRequest();
-request.open('GET', requestURL, true);
+const REQUEST_URL = './scuola02.json';
+const REQUEST = new XMLHttpRequest();
+REQUEST.open('GET', REQUEST_URL, true);
 
-request.responseType = 'json';
-request.send();
+REQUEST.responseType = 'json';
+REQUEST.send();
 
-request.onload = function() {
-    const scuola = request.response;
+REQUEST.onload = function() {
+    const SCUOLA = REQUEST.response;
     
     // ciclo sull'array delle classi
-    scuola.forEach(classe =>{
+    SCUOLA.forEach(classe =>{
         // creo il div per la nuova classe
-        let nuovaClasse = document.createElement("div");
+        const NUOVA_CLASSE = document.createElement("section");
         
         // creo il titolo per la classe
-        let titoloClasse = document.createElement("h1");
-        titoloClasse.innerHTML += classe.anno + classe.sezione + " " + classe.indirizzo + " " + classe.numeroAlunni+ " alunni";
-        nuovaClasse.appendChild(titoloClasse);
+        const TITOLO_CLASSE = document.createElement("h1");
+        TITOLO_CLASSE.innerHTML += classe.anno + classe.sezione + " " + classe.indirizzo + " " + classe.numeroAlunni+ " alunni";
+        NUOVA_CLASSE.appendChild(TITOLO_CLASSE);
         
         // creo la lista non ordinata per le materie
-        let listaMaterie = document.createElement("ul");
-        nuovaClasse.appendChild(listaMaterie);
+        const LISTA_MATERIE = document.createElement("ul");
+        NUOVA_CLASSE.appendChild(LISTA_MATERIE);
         
-        // aggiungo il div della nuova classe al div delle classi
-        document.getElementById('classi').appendChild(nuovaClasse);
+        // aggiungo la section della nuova classe alla section delle classi
+        document.getElementById('svolgimento').appendChild(NUOVA_CLASSE);
         
         // ciclo sulle materie della classe
         classe.materie.forEach(materia => {
 
             // creo l'elemento nella lista non ordinata di materie della classe corrente
-            let listItem = document.createElement("li");
+            const MATERIA = document.createElement("li");
 
-            listItem.innerHTML = materia.nome + " " + materia.ore + " ore ";
+            MATERIA.innerHTML = materia.nome + " " + materia.ore + " ore ";
             if (materia.obbligatoria)
-                listItem.innerHTML += " obbligatoria";
+                MATERIA.innerHTML += " obbligatoria";
             else
-                listItem.innerHTML += " non obbligatoria";
+                MATERIA.innerHTML += " non obbligatoria";
 
-            listaMaterie.appendChild(listItem);                        
+            LISTA_MATERIE.appendChild(MATERIA);                        
         });
     })
 }
