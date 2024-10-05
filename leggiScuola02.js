@@ -1,30 +1,33 @@
 const REQUEST_URL = './scuola02.json';
-const REQUEST = new XMLHttpRequest();
-REQUEST.open('GET', REQUEST_URL, true);
 
-REQUEST.responseType = 'json';
-REQUEST.send();
+fetch(REQUEST_URL, {
+    headers: {
+        'Accept': 'application/json'
+    }
+}).
+    then(response => response.json()).
+    then(json_object => elabora(json_object));
 
-REQUEST.onload = function() {
-    const SCUOLA = REQUEST.response;
-    
+function elabora(json_object) {
+    const SCUOLA = json_object;
+
     // ciclo sull'array delle classi
-    SCUOLA.forEach(classe =>{
+    SCUOLA.forEach(classe => {
         // creo il div per la nuova classe
         const NUOVA_CLASSE = document.createElement("section");
-        
+
         // creo il titolo per la classe
         const TITOLO_CLASSE = document.createElement("h1");
-        TITOLO_CLASSE.innerHTML += classe.anno + classe.sezione + " " + classe.indirizzo + " " + classe.numeroAlunni+ " alunni";
+        TITOLO_CLASSE.innerHTML += classe.anno + classe.sezione + " " + classe.indirizzo + " " + classe.numeroAlunni + " alunni";
         NUOVA_CLASSE.appendChild(TITOLO_CLASSE);
-        
+
         // creo la lista non ordinata per le materie
         const LISTA_MATERIE = document.createElement("ul");
         NUOVA_CLASSE.appendChild(LISTA_MATERIE);
-        
+
         // aggiungo la section della nuova classe alla section delle classi
         document.getElementById('svolgimento').appendChild(NUOVA_CLASSE);
-        
+
         // ciclo sulle materie della classe
         classe.materie.forEach(materia => {
 
@@ -37,7 +40,7 @@ REQUEST.onload = function() {
             else
                 MATERIA.innerHTML += " non obbligatoria";
 
-            LISTA_MATERIE.appendChild(MATERIA);                        
+            LISTA_MATERIE.appendChild(MATERIA);
         });
     })
 }
