@@ -1,43 +1,41 @@
-const REQUEST_URL = './scuola02.json';
-const REQUEST = new XMLHttpRequest();
-REQUEST.open('GET', REQUEST_URL, true);
+const PATH_FILE_JSON = './scuola02.json';
+fetch(PATH_FILE_JSON)
+    .then(response => response.json())
+    .then(SCUOLA => displayScuola(SCUOLA));
 
-REQUEST.responseType = 'json';
-REQUEST.send();
-
-REQUEST.onload = function() {
-    const SCUOLA = REQUEST.response;
-    
+function displayScuola(SCUOLA){
     // ciclo sull'array delle classi
-    SCUOLA.forEach(classe =>{
-        // creo il div per la nuova classe
-        const NUOVA_CLASSE = document.createElement("section");
+    SCUOLA.forEach(CLASSE =>{
+        // creo la sezione per la nuova classe
+        const SEZIONE_CLASSE = document.createElement("section");
         
-        // creo il titolo per la classe
+        // creo l'intestazione per la classe
         const TITOLO_CLASSE = document.createElement("h1");
-        TITOLO_CLASSE.innerHTML += classe.anno + classe.sezione + " " + classe.indirizzo + " " + classe.numeroAlunni+ " alunni";
-        NUOVA_CLASSE.appendChild(TITOLO_CLASSE);
+        TITOLO_CLASSE.innerHTML += CLASSE.anno + CLASSE.sezione +
+            " " + CLASSE.indirizzo + " " + CLASSE.numeroAlunni+ " alunni";
+        SEZIONE_CLASSE.appendChild(TITOLO_CLASSE);
         
         // creo la lista non ordinata per le materie
         const LISTA_MATERIE = document.createElement("ul");
-        NUOVA_CLASSE.appendChild(LISTA_MATERIE);
+        SEZIONE_CLASSE.appendChild(LISTA_MATERIE);
         
         // aggiungo la section della nuova classe alla section delle classi
-        document.getElementById('svolgimento').appendChild(NUOVA_CLASSE);
+        document.getElementById('svolgimento').appendChild(SEZIONE_CLASSE);
         
         // ciclo sulle materie della classe
-        classe.materie.forEach(materia => {
+        CLASSE.materie.forEach(MATERIA => {
 
             // creo l'elemento nella lista non ordinata di materie della classe corrente
-            const MATERIA = document.createElement("li");
+            const LINE_ITEM = document.createElement("li");
 
-            MATERIA.innerHTML = materia.nome + " " + materia.ore + " ore ";
-            if (materia.obbligatoria)
-                MATERIA.innerHTML += " obbligatoria";
+            LINE_ITEM.innerHTML = MATERIA.nome + " " + MATERIA.ore + " ore ";
+            if (MATERIA.obbligatoria)
+                LINE_ITEM.innerHTML += " obbligatoria";
             else
-                MATERIA.innerHTML += " non obbligatoria";
+                LINE_ITEM.innerHTML += " non obbligatoria";
 
-            LISTA_MATERIE.appendChild(MATERIA);                        
+            LISTA_MATERIE.appendChild(LINE_ITEM);                        
         });
     })
+
 }
