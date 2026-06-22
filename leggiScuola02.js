@@ -1,41 +1,56 @@
-const PATH_FILE_JSON = './scuola02.json';
-fetch(PATH_FILE_JSON)
-    .then(response => response.json())
-    .then(SCUOLA => displayScuola(SCUOLA));
+const pathFileJson = './scuola02.json';
 
-function displayScuola(SCUOLA){
-    // ciclo sull'array delle classi
-    SCUOLA.forEach(CLASSE =>{
-        // creo la sezione per la nuova classe
-        const SEZIONE_CLASSE = document.createElement("section");
-        
-        // creo l'intestazione per la classe
-        const TITOLO_CLASSE = document.createElement("h1");
-        TITOLO_CLASSE.innerHTML += CLASSE.anno + CLASSE.sezione +
-            " " + CLASSE.indirizzo + " " + CLASSE.numeroAlunni+ " alunni";
-        SEZIONE_CLASSE.appendChild(TITOLO_CLASSE);
-        
-        // creo la lista non ordinata per le materie
-        const LISTA_MATERIE = document.createElement("ul");
-        SEZIONE_CLASSE.appendChild(LISTA_MATERIE);
-        
-        // aggiungo la section della nuova classe alla section delle classi
-        document.getElementById('svolgimento').appendChild(SEZIONE_CLASSE);
-        
-        // ciclo sulle materie della classe
-        CLASSE.materie.forEach(MATERIA => {
+async function loadAndDisplayScuola() {
+  const svolgimentoElement = document.getElementById('svolgimento');
 
-            // creo l'elemento nella lista non ordinata di materie della classe corrente
-            const LINE_ITEM = document.createElement("li");
+  try {
+    // 1. Richiesta di rete
+    const response = await fetch(pathFileJson);
 
-            LINE_ITEM.innerHTML = MATERIA.nome + " " + MATERIA.ore + " ore ";
-            if (MATERIA.obbligatoria)
-                LINE_ITEM.innerHTML += " obbligatoria";
-            else
-                LINE_ITEM.innerHTML += " non obbligatoria";
+    if (!response.ok) {
+      throw new Error(`Errore di rete: ${response.status}`);
+    }
 
-            LISTA_MATERIE.appendChild(LINE_ITEM);                        
-        });
-    })
+    // 2. Estrazione dei dati JSON
+    const scuolaData = await response.json();
 
+    // 3. Svuota il contenitore principale prima di inserire i nuovi elementi
+    const svolgimentoElement = document.getElementById('svolgimento');
+    svolgimentoElement.innerHTML = "";
+
+    // 4. Elaborazione e rendering dei dati
+    scuolaData.forEach(classe => {
+      // Creo la sezione per la singola classe
+      const sezioneClasse = document.createElement("section");
+
+      // Intestazione della classe
+      const titoloClasse = document.createElement("h1");
+      titoloClasse.textContent = 
+        `${classe.anno}${classe.sezione} ${classe.indirizzo} - ${classe.numeroAlunni} alunni`;
+      sezioneClasse.appendChild(titoloClasse);
+
+      // Lista delle materie
+      const listaMaterie = document.createElement("ul");
+      sezioneClasse.appendChild(listaMaterie);
+
+      // Ciclo interno per le materie della classe corrente
+      classe.materie.forEach(materia => {
+        const lineItem = document.createElement("li");
+        const statoObbligatoria = materia.obbligatoria ? "obbligatoria" : "non obbligatoria";
+
+        lineItem.textContent = `${materia.nome} (${materia.ore} ore) - ${statoObbligatoria}`;
+        listaMaterie.appendChild(lineItem);
+      });
+
+      // Aggiungo la sezione completa al DOM
+      svolgimentoElement.appendChild(sezioneClasse);
+    });
+
+  } catch (errore) {
+    console.error("Errore durante l'operazione:", errore);
+    svolgimentoElement.textContent = "Impossibile caricare o visualizzare i dati scolastici.";
+  }
 }
+
+// Avvia l'intero processo
+loadAndDisplayScuola();
