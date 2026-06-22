@@ -1,7 +1,7 @@
 const pathFileJson = './scuola02.json';
 
 async function loadAndDisplayScuola() {
-  const svolgimentoElement = document.getElementById('svolgimento');
+  const sezioneClassi = document.getElementById('classi');
 
   try {
     // 1. Richiesta di rete
@@ -15,8 +15,7 @@ async function loadAndDisplayScuola() {
     const scuolaData = await response.json();
 
     // 3. Svuota il contenitore principale prima di inserire i nuovi elementi
-    const svolgimentoElement = document.getElementById('svolgimento');
-    svolgimentoElement.innerHTML = "";
+    sezioneClassi.innerHTML = "";
 
     // 4. Elaborazione e rendering dei dati
     scuolaData.forEach(classe => {
@@ -25,7 +24,7 @@ async function loadAndDisplayScuola() {
 
       // Intestazione della classe
       const titoloClasse = document.createElement("h1");
-      titoloClasse.textContent = 
+      titoloClasse.textContent =
         `${classe.anno}${classe.sezione} ${classe.indirizzo} - ${classe.numeroAlunni} alunni`;
       sezioneClasse.appendChild(titoloClasse);
 
@@ -43,12 +42,12 @@ async function loadAndDisplayScuola() {
       });
 
       // Aggiungo la sezione completa al DOM
-      svolgimentoElement.appendChild(sezioneClasse);
+      sezioneClassi.appendChild(sezioneClasse);
     });
 
   } catch (errore) {
     console.error("Errore durante l'operazione:", errore);
-    svolgimentoElement.textContent = "Impossibile caricare o visualizzare i dati scolastici.";
+    sezioneClassi.textContent = "Impossibile caricare o visualizzare i dati scolastici.";
   }
 }
 
